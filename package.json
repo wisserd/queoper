@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@netlify/functions": "^2.0.0",
-    "@netlify/neon": "^1.0.0"
+    "pg": "^8.11.3"
   },
   "devDependencies": {}
 }

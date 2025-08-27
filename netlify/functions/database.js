@@ -1,7 +1,22 @@
-import { neon } from '@netlify/neon';
+const { Pool } = require('pg');
 
-// Initialize Neon database connection
-const sql = neon(); // automatically uses env NETLIFY_DATABASE_URL
+// Initialize PostgreSQL connection pool
+const pool = new Pool({
+  connectionString: process.env.NETLIFY_DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+// Helper function to execute queries
+const query = async (text, params) => {
+  const client = await pool.connect();
+  try {
+    return await client.query(text, params);
+  } finally {
+    client.release();
+  }
+};
 
 // OnPurpose Platform Database Functions
 export const handler = async (event, context) => {
