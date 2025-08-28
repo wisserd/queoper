@@ -1,0 +1,12 @@
+# 1. Clean up previous builds
+rmdir /s /q .next 2>nul
+rmdir /s /q out 2>nul
+
+# 2. Install dependencies
+npm install
+
+# 3. Build the project
+npm run build
+
+# 4. Deploy to Vercel
+npx vercel --token z7zpif9Qk0Zilk7NkVrPrGUq --prod --confirm
