@@ -1,0 +1,4 @@
+# Move everything up
+mv frontend/* .
+mv frontend/.* . 2>/dev/null || true
+rmdir frontend
