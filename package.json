@@ -1,1 +1,16 @@
 {"type": "module"}
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "My app deployed with Vercel",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "echo \"No build step configured\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {}
+}
