@@ -1,0 +1,14 @@
+my-app/
+├─ package.json
+├─ vercel.json
+├─ hotfix-deploy.sh
+├─ .gitignore
+├─ .env.local.example
+├─ pages/
+│  ├─ index.js
+│  └─ api/
+│     └─ hello.js
+├─ styles/
+│  └─ globals.css
+├─ public/
+│  └─ (optional images)
