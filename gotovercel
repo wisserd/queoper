@@ -1,0 +1,3 @@
+git add .
+git commit -m "Update Next.js configuration and development setup"
+git push origin main
