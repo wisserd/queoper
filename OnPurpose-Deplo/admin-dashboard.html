@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - OnPurpose NYC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2F6FE4 0%, #1E40AF 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2F6FE4;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .applications-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: #f8f9fa;
+            padding: 20px 25px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .section-header h2 {
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .applications-list {
+            padding: 0;
+        }
+
+        .application-item {
+            padding: 20px 25px;
+            border-bottom: 1px solid #f1f3f4;
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .application-item:last-child {
+            border-bottom: none;
+        }
+
+        .application-info h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .application-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .application-category {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-approve {
+            background: #22C55E;
+            color: white;
+        }
+
+        .btn-approve:hover {
+            background: #16A34A;
+        }
+
+        .btn-reject {
+            background: #EF4444;
+            color: white;
+        }
+
+        .btn-reject:hover {
+            background: #DC2626;
+        }
+
+        .btn-view {
+            background: #6B7280;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #4B5563;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .close-btn {
+            float: right;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .application-item {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 OnPurpose Admin Dashboard</h1>
+        <p>Manage host applications and platform operations</p>
+    </div>
+
+    <div class="container">
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-number" id="pendingCount">-</div>
+                <div class="stat-label">Pending Applications</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="approvedCount">-</div>
+                <div class="stat-label">Approved Hosts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="rejectedCount">-</div>
+                <div class="stat-label">Rejected Applications</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalCount">-</div>
+                <div class="stat-label">Total Applications</div>
+            </div>
+        </div>
+
+        <div class="applications-section">
+            <div class="section-header">
+                <h2>📋 Host Applications</h2>
+            </div>
+            <div id="applicationsList" class="applications-list">
+                <div class="loading">Loading applications...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Detail Modal -->
+    <div id="applicationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+                <h3 id="modalTitle">Application Details</h3>
+            </div>
+            <div id="modalBody">
+                <!-- Application details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let applications = [];
+        let stats = {};
+
+        // Load applications on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadApplications();
+        });
+
+        async function loadApplications() {
+            try {
+                const response = await fetch('/.netlify/functions/admin-applications');
+                const data = await response.json();
+                
+                if (data.success) {
+                    applications = data.applications;
+                    stats = data.stats;
+                    updateStats();
+                    renderApplications();
+                } else {
+                    throw new Error(data.error || 'Failed to load applications');
+                }
+            } catch (error) {
+                console.error('Error loading applications:', error);
+                document.getElementById('applicationsList').innerHTML = 
+                    '<div class="empty-state">❌ Error loading applications</div>';
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('pendingCount').textContent = stats.pending || 0;
+            document.getElementById('approvedCount').textContent = stats.approved || 0;
+            document.getElementById('rejectedCount').textContent = stats.rejected || 0;
+            document.getElementById('totalCount').textContent = 
+                Object.values(stats).reduce((sum, count) => sum + count, 0);
+        }
+
+        function renderApplications() {
+            const container = document.getElementById('applicationsList');
+            
+            if (applications.length === 0) {
+                container.innerHTML = '<div class="empty-state">📝 No applications found</div>';
+                return;
+            }
+
+            container.innerHTML = applications.map(app => `
+                <div class="application-item">
+                    <div class="application-info">
+                        <h3>${app.firstName} ${app.lastName}</h3>
+                        <div class="application-meta">
+                            ${app.email} • ${new Date(app.createdAt).toLocaleDateString()}
+                        </div>
+                        <span class="application-category">${app.category}</span>
+                    </div>
+                    <div class="status-badge status-${app.status}">
+                        ${app.status}
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-view" onclick="viewApplication(${app.id})">
+                            👁️ View
+                        </button>
+                        ${app.status === 'pending' ? `
+                            <button class="btn btn-approve" onclick="updateStatus(${app.id}, 'approved')">
+                                ✅ Approve
+                            </button>
+                            <button class="btn btn-reject" onclick="updateStatus(${app.id}, 'rejected')">
+                                ❌ Reject
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function updateStatus(applicationId, status) {
+            const reviewNotes = prompt(`Add review notes for this ${status} application:`);
+            
+            try {
+                const response = await fetch('/.netlify/functions/admin-applications', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        applicationId,
+                        status,
+                        reviewNotes
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(`Application ${status} successfully!`);
+                    loadApplications(); // Reload to update UI
+                } else {
+                    throw new Error(data.error || 'Failed to update application');
+                }
+            } catch (error) {
+                console.error('Error updating application:', error);
+                alert('Error updating application: ' + error.message);
+            }
+        }
+
+        function viewApplication(applicationId) {
+            const app = applications.find(a => a.id === applicationId);
+            if (!app) return;
+
+            document.getElementById('modalTitle').textContent = 
+                `${app.firstName} ${app.lastName} - ${app.category}`;
+            
+            document.getElementById('modalBody').innerHTML = `
+                <div style="line-height: 1.6;">
+                    <p><strong>Email:</strong> ${app.email}</p>
+                    <p><strong>Phone:</strong> ${app.phone || 'Not provided'}</p>
+                    <p><strong>Location:</strong> ${app.location || 'Not specified'}</p>
+                    <p><strong>Hourly Rate:</strong> $${app.hourlyRate || 'Not specified'}</p>
+                    <p><strong>Availability:</strong> ${app.availability || 'Not specified'}</p>
+                    
+                    <h4 style="margin: 20px 0 10px 0;">Experience & Expertise:</h4>
+                    <p style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                        ${app.experience}
+                    </p>
+                    
+                    ${app.portfolio ? `
+                        <h4 style="margin: 20px 0 10px 0;">Portfolio:</h4>
+                        <p style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                            ${app.portfolio}
+                        </p>
+                    ` : ''}
+                    
+                    ${app.bio ? `
+                        <h4 style="margin: 20px 0 10px 0;">Host Bio:</h4>
+                        <p style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                            ${app.bio}
+                        </p>
+                    ` : ''}
+                    
+                    ${app.reviewNotes ? `
+                        <h4 style="margin: 20px 0 10px 0;">Review Notes:</h4>
+                        <p style="background: #fff3cd; padding: 15px; border-radius: 8px;">
+                            ${app.reviewNotes}
+                        </p>
+                    ` : ''}
+                </div>
+            `;
+            
+            document.getElementById('applicationModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('applicationModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('applicationModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

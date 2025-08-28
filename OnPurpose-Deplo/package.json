@@ -1,0 +1,21 @@
+{
+  "name": "onpurpose-platform",
+  "version": "1.0.0",
+  "description": "OnPurpose - Connection, Not Dating Platform",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Static site - no build required'",
+    "start": "echo 'Static site ready for deployment'"
+  },
+  "keywords": [
+    "onpurpose",
+    "connection",
+    "platform",
+    "hosts",
+    "experiences"
+  ],
+  "author": "OnPurpose Team",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}

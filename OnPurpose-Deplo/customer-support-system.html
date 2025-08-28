@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support System - OnPurpose NYC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #2F6FE4 0%, #1E40AF 100%);
+            color: white;
+            margin: -20px -20px 40px -20px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .support-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #2F6FE4;
+        }
+
+        .support-card h3 {
+            color: #2F6FE4;
+            margin-bottom: 15px;
+        }
+
+        .contact-form {
+            background: #FDF7F2;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: #2F6FE4;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #1E40AF;
+        }
+
+        .priority-high { border-left-color: #EF4444; }
+        .priority-medium { border-left-color: #F59E0B; }
+        .priority-low { border-left-color: #22C55E; }
+
+        .response-times {
+            background: #F0F9FF;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .escalation-flow {
+            background: #FEF2F2;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .faq-section {
+            margin: 40px 0;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: #f8f9fa;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .faq-answer {
+            padding: 15px;
+            display: none;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background: #2F6FE4;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .metric-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Customer Support System</h1>
+            <p>OnPurpose NYC - We're here to help</p>
+        </div>
+
+        <div class="support-grid">
+            <div class="support-card priority-high">
+                <h3>🚨 Emergency Support</h3>
+                <p><strong>Response Time:</strong> Immediate</p>
+                <p><strong>Contact:</strong> emergency@onpurpose.com</p>
+                <p>For safety concerns, harassment, or urgent issues during experiences.</p>
+                <ul>
+                    <li>Safety incidents</li>
+                    <li>Harassment or inappropriate behavior</li>
+                    <li>Host/guest no-shows</li>
+                    <li>Medical emergencies</li>
+                </ul>
+            </div>
+
+            <div class="support-card priority-medium">
+                <h3>💬 General Support</h3>
+                <p><strong>Response Time:</strong> 2-4 hours</p>
+                <p><strong>Contact:</strong> support@onpurpose.com</p>
+                <p>For booking issues, payment problems, and general questions.</p>
+                <ul>
+                    <li>Booking modifications</li>
+                    <li>Payment and refund issues</li>
+                    <li>Account problems</li>
+                    <li>Technical difficulties</li>
+                </ul>
+            </div>
+
+            <div class="support-card priority-low">
+                <h3>📋 Host Support</h3>
+                <p><strong>Response Time:</strong> 4-8 hours</p>
+                <p><strong>Contact:</strong> hosts@onpurpose.com</p>
+                <p>Dedicated support for host onboarding and experience management.</p>
+                <ul>
+                    <li>Application assistance</li>
+                    <li>Profile optimization</li>
+                    <li>Payout questions</li>
+                    <li>Experience planning</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="response-times">
+            <h3>📊 Response Time Commitments</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-number">&lt;15min</div>
+                    <div>Emergency Response</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">&lt;2hrs</div>
+                    <div>General Support</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">80%</div>
+                    <div>Resolved in 24hrs</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">95%</div>
+                    <div>Customer Satisfaction</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h3>📝 Submit Support Request</h3>
+            <form id="supportForm">
+                <div class="form-group">
+                    <label for="requestType">Request Type</label>
+                    <select id="requestType" required>
+                        <option value="">Select request type...</option>
+                        <option value="emergency">🚨 Emergency - Safety/Harassment</option>
+                        <option value="booking">📅 Booking Issue</option>
+                        <option value="payment">💳 Payment/Refund</option>
+                        <option value="account">👤 Account Problem</option>
+                        <option value="technical">🔧 Technical Issue</option>
+                        <option value="host">🏠 Host Support</option>
+                        <option value="general">💬 General Question</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="userType">I am a...</label>
+                    <select id="userType" required>
+                        <option value="">Select...</option>
+                        <option value="guest">Guest</option>
+                        <option value="host">Host</option>
+                        <option value="both">Both Host & Guest</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="bookingId">Booking ID (if applicable)</label>
+                    <input type="text" id="bookingId" placeholder="e.g., BK-2024-001234">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" required placeholder="Brief description of your issue">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Detailed Description</label>
+                    <textarea id="description" required placeholder="Please provide as much detail as possible about your issue or question..."></textarea>
+                </div>
+
+                <button type="submit" class="btn">Submit Support Request</button>
+            </form>
+        </div>
+
+        <div class="escalation-flow">
+            <h3>🔄 Issue Escalation Process</h3>
+            <ol>
+                <li><strong>Initial Response (2-4 hours):</strong> Support agent acknowledges and begins investigation</li>
+                <li><strong>Resolution Attempt (24 hours):</strong> Agent works to resolve issue directly</li>
+                <li><strong>Supervisor Review (48 hours):</strong> Complex issues escalated to senior support</li>
+                <li><strong>Management Escalation (72 hours):</strong> Unresolved issues reach management team</li>
+                <li><strong>Executive Review (1 week):</strong> Final escalation for critical unresolved issues</li>
+            </ol>
+        </div>
+
+        <div class="faq-section">
+            <h3>❓ Frequently Asked Questions</h3>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How do I cancel or reschedule a booking?
+                </div>
+                <div class="faq-answer">
+                    <p>You can cancel or reschedule through your account dashboard. Cancellation policies vary by timing:</p>
+                    <ul>
+                        <li>24+ hours: Full refund</li>
+                        <li>12-24 hours: 50% refund</li>
+                        <li>Less than 12 hours: No refund</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What should I do if my host doesn't show up?
+                </div>
+                <div class="faq-answer">
+                    <p>Contact emergency support immediately at emergency@onpurpose.com. You'll receive a full refund and we'll help find an alternative experience if possible.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How do I report inappropriate behavior?
+                </div>
+                <div class="faq-answer">
+                    <p>Report immediately through:</p>
+                    <ul>
+                        <li>Emergency support: emergency@onpurpose.com</li>
+                        <li>In-app report button</li>
+                        <li>Call our emergency line (available 24/7)</li>
+                    </ul>
+                    <p>We take all reports seriously and investigate within 24 hours.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    When will I receive my host payout?
+                </div>
+                <div class="faq-answer">
+                    <p>Host payouts are processed within 24-48 hours after experience completion. Payments go directly to your connected bank account via Stripe.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How do I update my profile information?
+                </div>
+                <div class="faq-answer">
+                    <p>Log into your account and navigate to Profile Settings. Some changes (like verification documents) may require admin approval.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What payment methods do you accept?
+                </div>
+                <div class="faq-answer">
+                    <p>We accept all major credit cards, debit cards, and digital wallets through our secure Stripe integration. PayPal coming soon.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="support-card">
+            <h3>📞 Additional Contact Methods</h3>
+            <ul>
+                <li><strong>Live Chat:</strong> Available on website 9AM-9PM EST</li>
+                <li><strong>Phone Support:</strong> (Coming soon) for urgent issues</li>
+                <li><strong>Social Media:</strong> @OnPurposeNYC on Twitter/Instagram</li>
+                <li><strong>Community Forum:</strong> community.onpurpose.com</li>
+            </ul>
+        </div>
+
+        <div class="support-card">
+            <h3>🛡️ Safety Resources</h3>
+            <ul>
+                <li><strong>Safety Guidelines:</strong> <a href="/safety-guidelines.html">View Safety Tips</a></li>
+                <li><strong>Emergency Contacts:</strong> Always carry local emergency numbers</li>
+                <li><strong>Incident Reporting:</strong> Report any safety concerns immediately</li>
+                <li><strong>Insurance Information:</strong> Coverage details and claims process</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const isOpen = answer.style.display === 'block';
+            
+            // Close all FAQ answers
+            document.querySelectorAll('.faq-answer').forEach(ans => {
+                ans.style.display = 'none';
+            });
+            
+            // Open clicked answer if it wasn't already open
+            if (!isOpen) {
+                answer.style.display = 'block';
+            }
+        }
+
+        document.getElementById('supportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                requestType: document.getElementById('requestType').value,
+                userType: document.getElementById('userType').value,
+                email: document.getElementById('email').value,
+                bookingId: document.getElementById('bookingId').value,
+                subject: document.getElementById('subject').value,
+                description: document.getElementById('description').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            // In production, this would submit to the backend
+            console.log('Support request submitted:', formData);
+            
+            alert('Support request submitted successfully! You will receive a confirmation email shortly.');
+            this.reset();
+        });
+
+        // Auto-route emergency requests
+        document.getElementById('requestType').addEventListener('change', function() {
+            if (this.value === 'emergency') {
+                alert('🚨 EMERGENCY REQUEST DETECTED\n\nFor immediate assistance:\n• Call 911 if in danger\n• Email: emergency@onpurpose.com\n• We will respond within 15 minutes');
+            }
+        });
+    </script>
+</body>
+</html>
