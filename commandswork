@@ -1,0 +1,8 @@
+# Install dependencies
+npm install
+
+# Run locally
+npm run dev
+
+# Deploy-ready
+npm run start
