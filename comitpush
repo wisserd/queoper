@@ -1,0 +1,3 @@
+git add -A
+git commit -m "Restructure project for Vercel"
+git push
