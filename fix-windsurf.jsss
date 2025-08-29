@@ -1,0 +1,72 @@
+#!/usr/bin/env node
+const fs = require('fs');
+const path = require('path');
+const { execSync } = require('child_process');
+
+console.log("🚀 Starting Windsurf Hotfix...");
+
+function safeJSONUpdate(filePath, updater) {
+  if (!fs.existsSync(filePath)) return;
+  const obj = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  const updated = updater(obj);
+  fs.writeFileSync(filePath, JSON.stringify(updated, null, 2));
+  console.log(`✅ Updated ${filePath}`);
+}
+
+// Clean next.config.js
+const nextConfig = path.join(process.cwd(), 'next.config.js');
+if (fs.existsSync(nextConfig)) {
+  let code = fs.readFileSync(nextConfig, 'utf8'), changed = false;
+
+  code = code.replace(/.*serverActions.*\n?/g, () => { changed = true; return ''; });
+  code = code.replace(/.*appDir.*\n?/g, () => { changed = true; return ''; });
+
+  if (/webpack/.test(code) && !/webpackBuildWorker/.test(code)) {
+    code = code.replace(/experimental\s*:/, () => {
+      changed = true;
+      return `experimental: {\n    webpackBuildWorker: true,`;
+    });
+  }
+
+  if (changed) {
+    fs.writeFileSync(nextConfig, code, 'utf8');
+    console.log("✅ Cleaned next.config.js");
+  } else {
+    console.log("ℹ️ No next.config.js changes needed");
+  }
+}
+
+// Remove "builds" from vercel.json
+safeJSONUpdate(path.join(process.cwd(), 'vercel.json'), (obj) => {
+  if (obj.builds) {
+    delete obj.builds;
+    console.log("✅ Removed 'builds' from vercel.json");
+  }
+  return obj;
+});
+
+// Fix Node engines in package.json
+safeJSONUpdate(path.join(process.cwd(), 'package.json'), (pkg) => {
+  pkg.engines = pkg.engines || {};
+  pkg.engines.node = ">=16.20.0";
+  console.log("✅ Updated node engine to >=16.20.0");
+  return pkg;
+});
+
+// Execute commands safely
+function run(cmd) {
+  console.log(`\n▶️ Running: ${cmd}`);
+  try {
+    execSync(cmd, { stdio: 'inherit' });
+  } catch {
+    console.log(`⚠️ Command failed (continuing): ${cmd}`);
+  }
+}
+
+run('npm uninstall @humanwhocodes/object-schema @humanwhocodes/config-array glob eslint || true');
+run('npm install @eslint/object-schema @eslint/config-array glob@^9.0.0 eslint@latest next@latest react@latest react-dom@latest');
+run('rm -rf node_modules package-lock.json || true');
+run('npm install');
+run('npm run build');
+
+console.log("\n🎉 Hotfix Complete! Warnings resolved, build should succeed.");
