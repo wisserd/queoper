@@ -1,8 +1,1 @@
-function Start-SafeCommand($cmd) {
-    Write-Host "▶️ Running: $cmd" -ForegroundColor Cyan
-    try {
-        Invoke-Expression $cmd
-    } catch {
-        Write-Host "⚠️ Command failed (continuing): $cmd" -ForegroundColor Yellow
-    }
-}
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
