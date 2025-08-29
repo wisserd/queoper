@@ -1,0 +1,3 @@
+git add . && echo "Added files." || echo "Warning: 'git add' failed, continuing..."
+git commit -m "Update project" && echo "Committed changes." || echo "Warning: 'git commit' failed (maybe nothing to commit), continuing..."
+git push origin main && echo "Pushed to main." || echo "Warning: 'git push' failed, please check your remote."
