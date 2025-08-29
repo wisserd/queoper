@@ -1,0 +1,7 @@
+try {
+    $response = Invoke-RestMethod -Uri $webhookUrl -Method POST -Body $body -ContentType "application/json"
+    Write-Host "✅ Vercel deployment triggered successfully! Response: $($response.message)" -ForegroundColor Green
+} catch {
+    Write-Host "⚠️ Webhook trigger failed: $($_.Exception.Message)" -ForegroundColor Yellow
+    Write-Host "Git push should still trigger deployment" -ForegroundColor Yellow
+}
