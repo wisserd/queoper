@@ -1,4 +1,4 @@
-function Invoke-Command($cmd) {
+function Start-SafeCommand($cmd) {
     Write-Host "▶️ Running: $cmd" -ForegroundColor Cyan
     try {
         Invoke-Expression $cmd
